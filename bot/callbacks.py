@@ -110,7 +110,7 @@ async def handle_refresh(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     context.user_data["users"][user_id][message_id]["refresh_count"] = refresh_count  # ✅ Fixed
 
     # Print logs for debugging
-    logging.info(f"User Show Summary {username} with ID {user_id} at {context.user_data["users"][user_id][message_id]["refresh_count"]}")
+    logging.info(f"User Show Summary {username} with ID {user_id} at {context.user_data['users'][user_id][message_id]['refresh_count']}")
     logging.info(f"Message ID HF! {message_id}")
 
     # Retrieve the token data
