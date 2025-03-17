@@ -170,7 +170,7 @@ async def show_summary(message_id, update: Update, context: ContextTypes.DEFAULT
     context.user_data["users"][user_id]["request_time"] = request_time.strftime("%Y-%m-%d %H:%M:%S")
 
     data = context.user_data.get("users", {}).get(user_id, {}).get(message_id, {}).get("token_data", None)
-    logging.info(f"User Show Summary {username} with ID {user_id} at { context.user_data["users"][user_id]["request_time"]}")
+    logging.info(f"User Show Summary {username} with ID {user_id} at { context.user_data['users'][user_id]['request_time']}")
     if not data:
         await update.message.reply_text("No token data found. Please enter a valid address.")
         return
