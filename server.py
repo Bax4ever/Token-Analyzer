@@ -1,6 +1,6 @@
 from flask import Flask, request
 import os
-from .bot import application  # ✅ Import the bot instance
+from bot import application  # ✅ Import the bot instance
 
 app = Flask(__name__)
 
