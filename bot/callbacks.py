@@ -193,7 +193,7 @@ async def handle_tax_details(update: Update, context: ContextTypes.DEFAULT_TYPE)
     context.user_data["users"][user_id]["request_time"] = request_time.strftime("%Y-%m-%d %H:%M:%S")
 
 
-    logging.info(f"User Show Summary {username} with ID {user_id} at { context.user_data["users"][user_id]["request_time"]}")
+    logging.info(f"User Show Summary {username} with ID {user_id} at { context.user_data['users'][user_id]['request_time']}")
     logging.info(f"Message Id HTx:{message_id}")
     # Retrieve data for this specific message ID
     data = context.user_data.get("users", {}).get(user_id, {}).get(message_id, {}).get("token_data", None)  # ✅ Correct retrieval
@@ -247,7 +247,7 @@ async def handle_token_summary(update: Update, context: ContextTypes.DEFAULT_TYP
     context.user_data["users"][user_id]["request_time"] = request_time.strftime("%Y-%m-%d %H:%M:%S")
 
 
-    logging.info(f"User Show Summary {username} with ID {user_id} at {context.user_data["users"][user_id]["request_time"]}")
+    logging.info(f"User Show Summary {username} with ID {user_id} at {context.user_data['users'][user_id]['request_time']}")
     # Retrieve data for this specific message
     data = context.user_data.get("users", {}).get(user_id, {}).get(message_id, {}).get("token_data", None)
 
