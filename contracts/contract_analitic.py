@@ -5,8 +5,6 @@ from urllib.parse import urlparse
 from services.etherscan_api import get_contract_source_code
 from bot.config import logging
 
-API_KEY = 'QKTQF4UIB2C55B3K1VQ4VQRD5U4D5NFM7B'
-
 def extract_social_links(text):
     tg_pattern = r'(https?://t\.me/[\w\d_-]+)'
     twitter_pattern = r'(https?://(?:www\.)?(?:x\.com|twitter\.com)/[\w\d_-]+)'
