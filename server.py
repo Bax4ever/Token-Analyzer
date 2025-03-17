@@ -11,7 +11,7 @@ def home():
 @app.route("/webhook", methods=["POST"])
 def webhook():
     """Handles incoming Telegram webhook updates."""
-    update = request.get_json()
+    update = Update.de_json(request.get_json(), application.bot)
 
     if update:
         application.update_queue.put(update)  # ✅ Send update to bot
@@ -20,4 +20,4 @@ def webhook():
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=8080)
