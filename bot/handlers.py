@@ -24,7 +24,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
     # Add the user information to a central log (example: print to console or store somewhere)
-    logging.info(f"User {username} with ID {user_id} started interaction at {context.user_data["users"][user_id]["request_time"]}")
+    logging.info(f"User {username} with ID {user_id} started interaction at {context.user_data['users'][user_id]['request_time']}")
 
     await update.message.reply_text("Please enter the token address:")
 
