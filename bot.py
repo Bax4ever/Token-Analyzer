@@ -4,6 +4,7 @@ from bot.config import botbundler_token
 import logging
 import os
 
+
 WEBHOOK_URL = os.getenv("WEBHOOK_URL")  # Set this in Railway/Render
 
 logging.basicConfig(level=logging.INFO)
