@@ -27,7 +27,11 @@ async def webhook():
         return jsonify({"status": "error", "message": "Empty request body"}), 400  # Bad Request
 
     # ✅ Properly enqueue the update in the Telegram bot application
-    await application.update_queue.put(update)
+    try:
+        await application.update_queue.put(update)  # ✅ Ensure it's awaited
+    except Exception as e:
+        logging.error(f"Error adding update to queue: {e}")
+        return jsonify({"status": "error", "message": "Failed to enqueue update"}), 500
 
     return jsonify({"status": "ok"}), 200  # ✅ Always return JSON response
 
@@ -35,6 +39,15 @@ async def webhook():
 def home():
     return jsonify({"message": "Webhook is working!"}), 200  # ✅ JSON response for health check
 
+def run_flask():
+    """Runs Flask server in an async-friendly manner"""
+    from hypercorn.asyncio import serve
+    from hypercorn.config import Config
+
+    config = Config()
+    config.bind = ["0.0.0.0:8080"]  # ✅ Set port correctly
+    asyncio.run(serve(app, config))
+
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(app.run(host="0.0.0.0", port=8080))
+    logging.info("✅ Starting Flask webhook server...")
+    run_flask()
