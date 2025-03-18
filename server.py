@@ -45,7 +45,7 @@ def run_flask():
     from hypercorn.config import Config
 
     config = Config()
-    config.bind = ["0.0.0.0:8080"]  # ✅ Set port correctly
+    config.bind = ["0.0.0.0:8443"]  # ✅ Set port correctly
     asyncio.run(serve(app, config))
 
 if __name__ == "__main__":
