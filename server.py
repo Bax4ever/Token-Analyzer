@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import logging
+import asyncio
 from main import application  # ✅ Import the bot instance
 
 app = Flask(__name__)
@@ -8,7 +9,7 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
 @app.route('/webhook', methods=['POST'])
-def webhook():
+async def webhook():
     """Handles incoming Telegram updates via webhook."""
     
     # ✅ Log the request content type
@@ -25,8 +26,8 @@ def webhook():
     if not update:
         return jsonify({"status": "error", "message": "Empty request body"}), 400  # Bad Request
 
-    # ✅ Process the update with the bot
-    application.update_queue.put(update)
+    # ✅ Properly enqueue the update in the Telegram bot application
+    await application.update_queue.put(update)
 
     return jsonify({"status": "ok"}), 200  # ✅ Always return JSON response
 
@@ -35,4 +36,5 @@ def home():
     return jsonify({"message": "Webhook is working!"}), 200  # ✅ JSON response for health check
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(app.run(host="0.0.0.0", port=8080))
