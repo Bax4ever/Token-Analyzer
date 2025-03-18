@@ -1,19 +1,21 @@
-from main import application  # ✅ Correct import from main.py
-from flask import Flask, request
-import logging
+from flask import Flask, request, jsonify
+from bot.bot import application  # Import the bot instance
 
 app = Flask(__name__)
-logging.basicConfig(level=logging.INFO)
 
-@app.route('/webhook', methods=['POST', 'GET'])  # ✅ Allow GET for testing
+@app.route('/webhook', methods=['POST'])
 def webhook():
-    if request.method == 'GET':
-        return "Webhook is working!", 200  # ✅ Test this in your browser
-
+    """Handles incoming Telegram updates via webhook."""
     update = request.get_json()
-    logging.info(f"📩 Received Update: {update}")
-    application.update_queue.put_nowait(update)
-    return "OK", 200
+
+    if update:
+        application.update_queue.put(update)  # ✅ Pass update to bot
+
+    return jsonify({"status": "ok"}), 200  # ✅ Always return JSON
+
+@app.route('/')
+def home():
+    return jsonify({"message": "Webhook is working!"}), 200  # ✅ JSON home check
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
