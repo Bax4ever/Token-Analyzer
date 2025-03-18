@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from bot.bot import application  # Import the bot instance
+from main import application  # Import the bot instance
 
 app = Flask(__name__)
 
